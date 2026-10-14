@@ -1,4 +1,4 @@
-Attribute VB_Name = "MÛdulo2"
+Attribute VB_Name = "M√≥dulo2"
 Sub AdicionarReceita()
     Dim wsForm As Worksheet
     Dim wsRec As Worksheet
@@ -23,7 +23,7 @@ Sub AdicionarReceita()
     
     Application.ScreenUpdating = False
     
-    ' 1. Ler dados do formul·rio de entrada (Linha 3 - Colunas J atÈ M)
+    ' 1. Ler dados do formul√°rio de entrada (Linha 3 - Colunas J at√© M)
     If IsDate(wsForm.Range("J3").Value) Then
         dataReg = CDate(wsForm.Range("J3").Value)
     Else
@@ -34,22 +34,22 @@ Sub AdicionarReceita()
     valorRec = CDbl(wsForm.Range("L3").Value)
     mesRef = Trim(wsForm.Range("M3").Value)
     
-    ' ValidaÁıes de seguranÁa
+    ' Valida√ß√µes de seguran√ßa
     If tipoRec = "" Then
-        MsgBox "Por favor, selecione o Tipo de receita (Adiantamento ou Sal·rio).", vbExclamation, "AtenÁ„o"
+        MsgBox "Por favor, selecione o Tipo de receita (Adiantamento ou Sal√°rio).", vbExclamation, "Aten√ß√£o"
         Exit Sub
     End If
     
     If valorRec <= 0 Then
-        MsgBox "O valor da receita deve ser maior que zero.", vbExclamation, "AtenÁ„o"
+        MsgBox "O valor da receita deve ser maior que zero.", vbExclamation, "Aten√ß√£o"
         Exit Sub
     End If
     
-    ' 2. Localizar a ˙ltima linha preenchida na Coluna B (ID) da aba RECEITA
+    ' 2. Localizar a √∫ltima linha preenchida na Coluna B (ID) da aba RECEITA
     lastRow = wsRec.Cells(wsRec.Rows.Count, "B").End(xlUp).Row
     If lastRow < 2 Then lastRow = 2
     
-    ' Gerar o ID autom·tico
+    ' Gerar o ID autom√°tico
     If lastRow = 2 Then
         nextID = 1
     Else
@@ -58,22 +58,22 @@ Sub AdicionarReceita()
     
     lastRow = lastRow + 1
     
-    ' 3. Escrever os dados na aba RECEITA (Colunas B atÈ H)
+    ' 3. Escrever os dados na aba RECEITA (Colunas B at√© H)
     wsRec.Cells(lastRow, 2).Value = nextID            ' Coluna B - ID
     wsRec.Cells(lastRow, 3).Value = dataReg           ' Coluna C - DATA DE REGISTRO
     wsRec.Cells(lastRow, 4).Value = tipoRec           ' Coluna D - TIPO
     wsRec.Cells(lastRow, 5).Value = valorRec          ' Coluna E - VALOR
-    wsRec.Cells(lastRow, 6).Value = mesRef            ' Coluna F - M S REFERENTE
+    wsRec.Cells(lastRow, 6).Value = mesRef            ' Coluna F - M√äS REFERENTE
     
-    ' FÛrmulas para MÍs e Ano baseados na Data de Registro (Coluna C)
-    wsRec.Cells(lastRow, 7).Formula = "=MONTH(C" & lastRow & ")" ' Coluna G - M S
+    ' F√≥rmulas para M√™s e Ano baseados na Data de Registro (Coluna C)
+    wsRec.Cells(lastRow, 7).Formula = "=MONTH(C" & lastRow & ")" ' Coluna G - M√äS
     wsRec.Cells(lastRow, 8).Formula = "=YEAR(C" & lastRow & ")"  ' Coluna H - ANO
     
-    ' FormataÁ„o das CÈlulas
+    ' Formata√ß√£o das C√©lulas
     wsRec.Cells(lastRow, 3).NumberFormat = "dd/mm/yyyy"
     wsRec.Cells(lastRow, 5).NumberFormat = """R$""#,##0.00"
     
-    ' 4. Limpar o Formul·rio de Entrada
+    ' 4. Limpar o Formul√°rio de Entrada
     wsForm.Range("J3").Formula = "=TODAY()"
     wsForm.Range("K3").Value = ""
     wsForm.Range("L3").Value = 0
