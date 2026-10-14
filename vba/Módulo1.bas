@@ -1,4 +1,4 @@
-Attribute VB_Name = "Módulo1"
+Attribute VB_Name = "MÃ³dulo1"
 Sub AdicionarGasto()
     Dim wsForm As Worksheet
     Dim wsData As Worksheet
@@ -45,25 +45,25 @@ Sub AdicionarGasto()
     numParcelas = CInt(wsForm.Range("G3").Value)
     cartao = wsForm.Range("H3").Value
     
-    ' Validações de segurança
+    ' ValidaÃ§Ãµes de seguranÃ§a
     If descricao = "" Then
-        MsgBox "Por favor, preencha a Descrição do gasto.", vbExclamation, "Atenção"
+        MsgBox "Por favor, preencha a DescriÃ§Ã£o do gasto.", vbExclamation, "AtenÃ§Ã£o"
         Exit Sub
     End If
     
     If valorTotal <= 0 Then
-        MsgBox "O Valor Total deve ser maior que zero.", vbExclamation, "Atenção"
+        MsgBox "O Valor Total deve ser maior que zero.", vbExclamation, "AtenÃ§Ã£o"
         Exit Sub
     End If
     
     If numParcelas < 1 Then numParcelas = 1
     valorParcela = valorTotal / numParcelas
     
-    ' 2. Encontrar a última linha preenchida na Coluna C (ID) da aba PLAN GASTOS
+    ' 2. Encontrar a Ãºltima linha preenchida na Coluna C (ID) da aba PLAN GASTOS
     lastRow = wsData.Cells(wsData.Rows.Count, "C").End(xlUp).Row
     If lastRow < 3 Then lastRow = 3
     
-    ' Gerar o próximo ID automático
+    ' Gerar o prÃ³ximo ID automÃ¡tico
     If lastRow = 3 Then
         nextID = 1
     Else
@@ -74,7 +74,7 @@ Sub AdicionarGasto()
     For i = 1 To numParcelas
         lastRow = lastRow + 1
         
-        ' Calcular data da parcela (avança 1 mês a cada parcela)
+        ' Calcular data da parcela (avanÃ§a 1 mÃªs a cada parcela)
         dataParcela = DateAdd("m", i - 1, dataGasto)
         
         If numParcelas > 1 Then
@@ -83,23 +83,23 @@ Sub AdicionarGasto()
             descParcela = descricao
         End If
         
-        ' Inserir valores nas colunas C até N
+        ' Inserir valores nas colunas C atÃ© N
         wsData.Cells(lastRow, 3).Value = nextID                      ' Coluna C - ID
         wsData.Cells(lastRow, 4).Value = dataParcela                 ' Coluna D - Data
-        wsData.Cells(lastRow, 5).Value = descParcela                 ' Coluna E - Descrição
+        wsData.Cells(lastRow, 5).Value = descParcela                 ' Coluna E - DescriÃ§Ã£o
         wsData.Cells(lastRow, 6).Value = categoria                   ' Coluna F - Categoria
         wsData.Cells(lastRow, 7).Value = valorTotal                  ' Coluna G - Valor Total
         wsData.Cells(lastRow, 8).Value = formaPag                    ' Coluna H - Forma de Pagamento
-        wsData.Cells(lastRow, 9).Value = numParcelas                 ' Coluna I - Nº Parcelas
+        wsData.Cells(lastRow, 9).Value = numParcelas                 ' Coluna I - NÂº Parcelas
         wsData.Cells(lastRow, 10).Value = valorParcela               ' Coluna J - Valor da Parcela
-        wsData.Cells(lastRow, 11).Value = cartao                     ' Coluna K - Cartão
+        wsData.Cells(lastRow, 11).Value = cartao                     ' Coluna K - CartÃ£o
         
-        ' Fórmulas automáticas para Mês, Ano e Mês/Ano apontando para a Coluna D (Data)
-        wsData.Cells(lastRow, 12).Formula = "=MONTH(D" & lastRow & ")"        ' Coluna L - Mês
+        ' FÃ³rmulas automÃ¡ticas para MÃªs, Ano e MÃªs/Ano apontando para a Coluna D (Data)
+        wsData.Cells(lastRow, 12).Formula = "=MONTH(D" & lastRow & ")"        ' Coluna L - MÃªs
         wsData.Cells(lastRow, 13).Formula = "=YEAR(D" & lastRow & ")"         ' Coluna M - Ano
-        'wsData.Cells(lastRow, 14).Formula = "=TEXT(D" & lastRow & ", ""mm/yyyy"")" ' Coluna N - Mês/Ano'
+        'wsData.Cells(lastRow, 14).Formula = "=TEXT(D" & lastRow & ", ""mm/yyyy"")" ' Coluna N - MÃªs/Ano'
         
-        ' Formatação visual das células gravadas
+        ' FormataÃ§Ã£o visual das cÃ©lulas gravadas
         wsData.Cells(lastRow, 4).NumberFormat = "dd/mm/yyyy"
         wsData.Cells(lastRow, 7).NumberFormat = """R$""#,##0.00"
         wsData.Cells(lastRow, 10).NumberFormat = """R$""#,##0.00"
@@ -109,9 +109,9 @@ Sub AdicionarGasto()
     
     ' 4. Limpar a linha de entrada na aba ENTRADA E GASTOS
     wsForm.Range("B3").Formula = "=TODAY()" ' Restaura a data atual em B3
-    wsForm.Range("C3").Value = ""           ' Limpa Descrição
+    wsForm.Range("C3").Value = ""           ' Limpa DescriÃ§Ã£o
     wsForm.Range("E3").Value = 0            ' Zera Valor Total
-    wsForm.Range("F3").Value = "À vista"    ' Reseta Forma de Pagamento
+    wsForm.Range("F3").Value = "Ã€ vista"    ' Reseta Forma de Pagamento
     wsForm.Range("G3").Value = 1            ' Reseta Parcelas para 1
     
     Application.ScreenUpdating = True
