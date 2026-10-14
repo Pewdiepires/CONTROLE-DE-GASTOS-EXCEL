@@ -1,4 +1,4 @@
-Attribute VB_Name = "Módulo3"
+Attribute VB_Name = "MÃ³dulo3"
 Sub AdicionarInvestimento()
     Dim wsForm As Worksheet
     Dim wsInv As Worksheet
@@ -18,7 +18,7 @@ Sub AdicionarInvestimento()
     
     Application.ScreenUpdating = False
     
-    ' 1. Ler Data de Registro (J3) e Mês de Referência (K9)
+    ' 1. Ler Data de Registro (J3) e MÃªs de ReferÃªncia (K9)
     If IsDate(wsForm.Range("J3").Value) Then
         dataReg = CDate(wsForm.Range("J3").Value)
     Else
@@ -28,7 +28,7 @@ Sub AdicionarInvestimento()
     mesRef = Trim(wsForm.Range("K9").Value)
     
     If mesRef = "" Then
-        MsgBox "Por favor, preencha o Mês de Referência em K9.", vbExclamation, "Atenção"
+        MsgBox "Por favor, preencha o MÃªs de ReferÃªncia em K9.", vbExclamation, "AtenÃ§Ã£o"
         Exit Sub
     End If
     
@@ -39,7 +39,7 @@ Sub AdicionarInvestimento()
     ProcessarEGravar wsForm, wsInv, dataReg, mesRef, "Outros", "L17", "K17"
     
     ' 3. LIMPAR OS VALORES RESERVADOS (Voltam para 0 ou Vazio)
-    wsForm.Range("L14:L17").ClearContents ' Limpa o conteúdo das células L14 a L17
+    wsForm.Range("L14:L17").ClearContents ' Limpa o conteÃºdo das cÃ©lulas L14 a L17
     
     Application.ScreenUpdating = True
     
@@ -81,9 +81,9 @@ Private Sub RegistrarCaixinha(wsInv As Worksheet, dataReg As Date, caixinha As S
     wsInv.Cells(lastRow, 3).Value = dataReg           ' Coluna C - DATA
     wsInv.Cells(lastRow, 4).Value = caixinha          ' Coluna D - DESTINO
     wsInv.Cells(lastRow, 5).Value = valor             ' Coluna E - VALOR
-    wsInv.Cells(lastRow, 6).Value = mesRef            ' Coluna F - MÊS REFERENTE
+    wsInv.Cells(lastRow, 6).Value = mesRef            ' Coluna F - MÃŠS REFERENTE
     
-    wsInv.Cells(lastRow, 7).Formula = "=MONTH(C" & lastRow & ")" ' Coluna G - MÊS
+    wsInv.Cells(lastRow, 7).Formula = "=MONTH(C" & lastRow & ")" ' Coluna G - MÃŠS
     wsInv.Cells(lastRow, 8).Formula = "=YEAR(C" & lastRow & ")"  ' Coluna H - ANO
     
     wsInv.Cells(lastRow, 3).NumberFormat = "dd/mm/yyyy"
